@@ -34,6 +34,11 @@ variable "security_groups" {
   default     = ["sg-0ed51816f400fad69"]
 }
 
+variable "key_name" {
+  description = "Key to login to the server"
+  type        = string
+  default     = "shared.nonprod.pem"
+
 variable "subnet_id" {
   description = "The Subnet ID to launch resources in"
   type        = string
