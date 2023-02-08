@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                // Check out the code from the GitHub repository
+                git branch:'main',url:'https://github.com/jyothiadevops/ec2-pipeline.git'
+            }
+        }
+        stage('Terraform Init') {
+            steps {
+                // Run terraform init
+                sh 'terraform init'
+            }
+        }
+        stage('Terraform Plan') {
+            steps {
+                // Run terraform plan
+                sh 'terraform plan'
+            }
+        }
+        stage('Terraform Apply') {
+            steps {
+                // Configure AWS credentials
+                withAWS(credentials: 'Global.AWS.GCS.Shared.NonProd', region: 'us-east-1') {
+                    // Run terraform apply
+                    sh 'terraform apply --auto-approve'
+                }
+            }
+        }
+    }
+}
