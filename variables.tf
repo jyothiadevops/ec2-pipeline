@@ -47,7 +47,7 @@ variable "subnet_ids" {
 variable "key_name" {
   description = "Key to login to the server"
   type        = string
-  default     = "shared.nonprod.pem"
+  default     = "shared.nonprod"
 }
 
 // Tag details
