@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+    
+    parameters {
+        choice(
+            name: 'Action', 
+            choices: [
+                'plan',
+                'apply',
+                'destroy'
+            ], 
+            description: 'Choose an action to execute'
+        )
+    }
+    
+    stages {
+        stage('Terraform') {
+            steps {
+                script {
+                    if (params.Action == 'plan') {
+                        git branch:'main',url:'https://github.com/jyothiadevops/ec2-pipeline.git'
+                        sh 'terraform init'
+                        sh 'terraform plan'
+                    } else if (params.Action == 'apply') {
+                        script {
+                        def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
+                        }
+                        withAWS(credentials: 'Global.AWS.GCS.Shared.NonProd', region: 'us-east-1') {
+                        sh 'terraform apply --auto-approve'
+                        }
+                    } else if (params.Action == 'destroy') {
+                        script {
+                        def userInput = input(id: 'confirm', message: 'Destroy Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Destroy terraform', name: 'confirm'] ])
+                        }
+                        withAWS(credentials: 'Global.AWS.GCS.Shared.NonProd', region: 'us-east-1') {
+                        sh 'terraform destroy --auto-approve'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
