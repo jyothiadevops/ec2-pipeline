@@ -57,7 +57,7 @@ variable "SCTaskNo" {
   type        = string
   default     = "SCTASK0573291"
 }
-variable "Owner" {
+variable "owner_name" {
   description = "Owner of this server or team"
   type        = string
   default     = "GCS"
