@@ -4,7 +4,7 @@ resource "aws_instance" "ec2" {
   instance_type = "${var.instance_type}"
   availability_zone = var.azs[count.index]
   vpc_security_group_ids = "${var.security_groups}"
-  subnet_id             = "${var.subnet_id}"
+  subnet_id             = "${var.subnet_ids}"
   key_name                 = "${var.key_name}"
   tags = {
     Name = "${var.hostname}"
