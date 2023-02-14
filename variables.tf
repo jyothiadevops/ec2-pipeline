@@ -16,7 +16,7 @@ variable "ami" {
   default     = "ami-0123456789abcdefg"
 }
 
-variable "count" {
+variable "ec2_instance_count" {
   description = "No of instances required"
   type        = string
   default     = "2"
