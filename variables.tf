@@ -36,7 +36,7 @@ variable "azs" {
 variable "security_groups" {
   description = "The list of security group IDs"
   type        = list(string)
-  default     = ["sg-0123456789abcdefg"]
+  default     = ["sg-0ed51816f400fad69"]
 }
 
 variable "subnet_ids" {
