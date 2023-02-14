@@ -13,7 +13,7 @@ variable "region" {
 variable "ami" {
   description = "The EC2 AMI to use"
   type        = string
-  default     = "ami-0123456789abcdefg"
+  default     = "ami-03cf1a25c0360a382"
 }
 
 variable "ec2_instance_count" {
@@ -41,8 +41,8 @@ variable "security_groups" {
 
 variable "subnet_id" {
   description = "The Subnet ID to launch resources in"
-  type        = string
-  default     = "subnet-0123456789abcdefg"
+  type        = list(string)
+  default     = ["subnet-03310e0f5b6c59870" ,"subnet-0a1079767e640d268"]
 }
 variable "key_name" {
   description = "Key to login to the server"
