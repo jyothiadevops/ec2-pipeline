@@ -39,7 +39,7 @@ variable "security_groups" {
   default     = ["sg-0123456789abcdefg"]
 }
 
-variable "subnet_id" {
+variable "subnet_ids" {
   description = "The Subnet ID to launch resources in"
   type        = list(string)
   default     = ["subnet-03310e0f5b6c59870" ,"subnet-0a1079767e640d268"]
