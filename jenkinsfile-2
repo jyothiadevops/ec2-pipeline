@@ -1,0 +1,26 @@
+// jenkinsfile for choosing multiple aws accounts with choice parameter
+
+pipeline {
+    agent any
+    parameters {
+        choice(
+            name: 'AWS_ACCOUNT_NAME',
+            choices: ['Global.AWS.GCS.Shared.NonProd', 'Global.AWS.CustomDev.WAS.NonProd', 'Global.AWS.Security.ADRAP.NonProd'],
+            description: 'Choose the AWS Account Name'
+        )
+    }
+    stages {
+        stage('Deploy'){
+            steps{
+                // echo "Deploying to ${params.AWS_ACCOUNT_NAME}"
+                git branch:'main',url:'https://github.com/jyothiadevops/ec2-pipeline.git'
+                sh 'terraform init'
+                sh 'terraform plan'
+                withAWS(credentials: 'Global.AWS.GCS.Shared.NonProd', region: 'us-east-1') {
+                    // Run terraform apply
+                sh 'terraform apply --auto-approve'
+                }
+            }
+        }
+    }
+}
