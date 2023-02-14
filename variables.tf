@@ -19,7 +19,7 @@ variable "ami" {
 variable "count" {
   description = "No of instances required"
   type        = string
-  default     = "1"
+  default     = "2"
 }
 
 variable "instance_type" {
