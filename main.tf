@@ -1,6 +1,6 @@
 resource "aws_instance" "ec2" {
   ami           = "${var.ami}"
-  count = "${var.count}"
+  count = "${var.ec2_instance_count}"
   instance_type = "${var.instance_type}"
   availability_zone = var.azs[count.index]
   vpc_security_group_ids = "${var.security_groups}"
